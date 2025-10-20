@@ -1,0 +1,9 @@
+{
+  "name": "@flashcards/utils",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  }
+}
