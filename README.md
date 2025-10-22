@@ -83,6 +83,6 @@ Runs on every pull request and push to main branch:
 ```bash
 # Run the same checks locally before pushing
 pnpm lint   # Check code style
-pnpm test   # Run tests  
+pnpm test   # Run tests
 pnpm build  # Verify builds work
 ```
