@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "echo \"No tests yet\" && exit 0",
+    "build": "echo \"No build yet\" && exit 0"
   }
 }
