@@ -58,3 +58,31 @@ This project uses consistent linting and formatting across all workspaces:
 - Each workspace inherits from shared configs in `packages/config/`
 - Individual `eslint.config.cjs` files reference the base configuration
 - Consistent rules across frontend, backend, and shared packages
+
+## Continuous Integration
+
+This project uses GitHub Actions for automated CI/CD:
+
+### CI Pipeline (`.github/workflows/ci.yml`)
+
+Runs on every pull request and push to main branch:
+
+1. **Setup** - Node.js 20, pnpm cache, install dependencies
+2. **Lint** - ESLint across all workspaces (`pnpm lint`)
+3. **Test** - Unit tests across all workspaces (`pnpm test`)
+4. **Build** - Build all apps and packages (`pnpm build`)
+
+### Branch Protection
+
+- All PRs must pass CI checks before merging
+- Direct pushes to main branch also trigger CI
+- Red/green status checks visible on every PR
+
+### Local CI Testing
+
+```bash
+# Run the same checks locally before pushing
+pnpm lint   # Check code style
+pnpm test   # Run tests  
+pnpm build  # Verify builds work
+```
