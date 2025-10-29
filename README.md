@@ -20,13 +20,41 @@ This repository is organized as a monorepo with the following structure:
 
 ## Quick Start
 
-```bash
-# Install dependencies
-pnpm install
+1. **Install dependencies:**
 
-# Start development servers
-pnpm dev
-```
+   ```bash
+   pnpm install
+   ```
+
+2. **Setup environment variables:**
+
+   ```bash
+   # Copy environment templates
+   cp apps/server/.env.example apps/server/.env
+   cp apps/web/.env.example apps/web/.env
+
+   # Edit apps/server/.env and change JWT_SECRET to a secure value
+   ```
+
+3. **Start development servers:**
+   ```bash
+   pnpm dev    # Starts both web and server in parallel
+   ```
+
+## Environment Setup
+
+### Required Environment Variables
+
+**Server** (`apps/server/.env`):
+
+- `JWT_SECRET` - **MUST be changed** from "replace_me" to a secure secret
+- `MONGODB_URI` - MongoDB connection string (default: local MongoDB)
+- `PORT` - Server port (default: 4000)
+- `CLIENT_ORIGIN` - Frontend URL for CORS (default: http://localhost:5173)
+
+**Web** (`apps/web/.env`):
+
+- `VITE_API_URL` - Backend API URL (default: http://localhost:4000)
 
 ## Scripts
 
