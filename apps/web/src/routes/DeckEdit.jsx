@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DeckForm from "../components/DeckForm";
+import Toast, { useToast } from "../components/Toast";
 
 export default function DeckEdit() {
   const { id } = useParams();
@@ -10,6 +11,7 @@ export default function DeckEdit() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [fetchError, setFetchError] = useState("");
+  const { toasts, showToast, removeToast } = useToast();
 
   useEffect(() => {
     const fetchDeck = async () => {
@@ -75,6 +77,12 @@ export default function DeckEdit() {
         return;
       }
 
+      // Update local deck state with new data
+      setDeck(data.deck);
+
+      // Show success message
+      showToast("Deck updated successfully!");
+
       // Navigate to the updated deck detail page
       navigate(`/decks/${id}`);
     } catch (error) {
@@ -82,6 +90,20 @@ export default function DeckEdit() {
       setErrors({ general: error.message });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleCopyPublicLink = async () => {
+    if (!deck?.isPublic) return;
+
+    const publicUrl = `${window.location.origin}/public/decks/${id}`;
+
+    try {
+      await navigator.clipboard.writeText(publicUrl);
+      showToast("Public link copied to clipboard!");
+    } catch (error) {
+      console.error("Failed to copy link:", error);
+      showToast("Failed to copy link. Please try again.", "error");
     }
   };
 
@@ -154,7 +176,68 @@ export default function DeckEdit() {
               isSubmitting={isSubmitting}
               errors={errors}
             />
+
+            {/* Public Link Section */}
+            {deck?.isPublic && (
+              <div className="mt-8 pt-8 border-t border-gray-200">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  Public Sharing
+                </h3>
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg
+                        className="h-5 w-5 text-green-600"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-3 flex-1">
+                      <h4 className="text-sm font-medium text-green-800">
+                        This deck is now public!
+                      </h4>
+                      <p className="text-sm text-green-700 mt-1">
+                        Anyone with the link can view this deck and its cards in
+                        read-only mode.
+                      </p>
+                      <div className="mt-3">
+                        <button
+                          onClick={handleCopyPublicLink}
+                          className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                        >
+                          <svg
+                            className="h-4 w-4 mr-2"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                            />
+                          </svg>
+                          Copy Public Link
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
+
+          {/* Toast Notifications */}
+          <Toast toasts={toasts} onRemove={removeToast} />
         </div>
       </div>
     </div>

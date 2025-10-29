@@ -7,6 +7,7 @@ import DeckNew from "./routes/DeckNew";
 import DeckDetail from "./routes/DeckDetail";
 import DeckEdit from "./routes/DeckEdit";
 import StudySession from "./routes/StudySession";
+import PublicDeckView from "./routes/PublicDeckView";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/decks/:id" element={<DeckDetail />} />
         <Route path="/decks/:id/edit" element={<DeckEdit />} />
         <Route path="/study/:deckId" element={<StudySession />} />
+        <Route path="/public/decks/:id" element={<PublicDeckView />} />
       </Routes>
     </div>
   );
