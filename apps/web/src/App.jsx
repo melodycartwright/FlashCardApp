@@ -6,6 +6,7 @@ import Decks from "./routes/Decks";
 import DeckNew from "./routes/DeckNew";
 import DeckDetail from "./routes/DeckDetail";
 import DeckEdit from "./routes/DeckEdit";
+import StudySession from "./routes/StudySession";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/decks/new" element={<DeckNew />} />
         <Route path="/decks/:id" element={<DeckDetail />} />
         <Route path="/decks/:id/edit" element={<DeckEdit />} />
+        <Route path="/study/:deckId" element={<StudySession />} />
       </Routes>
     </div>
   );
