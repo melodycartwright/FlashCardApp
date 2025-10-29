@@ -4,6 +4,8 @@ import Login from "./routes/Login";
 import Register from "./routes/Register";
 import Decks from "./routes/Decks";
 import DeckNew from "./routes/DeckNew";
+import DeckDetail from "./routes/DeckDetail";
+import DeckEdit from "./routes/DeckEdit";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/decks" element={<Decks />} />
         <Route path="/decks/new" element={<DeckNew />} />
+        <Route path="/decks/:id" element={<DeckDetail />} />
+        <Route path="/decks/:id/edit" element={<DeckEdit />} />
       </Routes>
     </div>
   );
