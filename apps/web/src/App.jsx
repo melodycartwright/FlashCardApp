@@ -3,6 +3,7 @@ import Nav from "./components/Nav";
 import Login from "./routes/Login";
 import Register from "./routes/Register";
 import Decks from "./routes/Decks";
+import DeckNew from "./routes/DeckNew";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/decks" element={<Decks />} />
+        <Route path="/decks/new" element={<DeckNew />} />
       </Routes>
     </div>
   );
